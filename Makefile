@@ -1,5 +1,5 @@
 GCP_PROJECT_NAME=s9-demo
-RELEASE_VERSION=0.1.3
+RELEASE_VERSION=0.1.5
 
 all: test
 
@@ -8,6 +8,12 @@ run:
 
 deps:
 	go mod tidy
+
+policy:
+	PROJECT_NUMBER="$(gcloud projects describe ${PROJECT_ID} --format='get(projectNumber)')"
+	gcloud projects add-iam-policy-binding ${PROJECT_NUMBER} \
+    	--member=serviceAccount:${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com \
+    	--role=roles/container.developer
 
 image:
 	gcloud builds submit \
