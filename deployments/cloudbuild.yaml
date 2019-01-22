@@ -40,7 +40,7 @@ steps:
   args:
   - 'apply'
   - '-f'
-  - 'deployments/service.yaml'
+  - 'manifest.yaml'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=kn-v3-head'
