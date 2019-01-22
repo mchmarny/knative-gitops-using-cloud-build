@@ -17,5 +17,6 @@ deploy:
 	kubectl apply -f deployments/service.yaml
 
 tag:
-	git tag deploy
-	git push origin deploy
+	export RELEASE_VERSION=0.1.3
+	git tag "release-v${RELEASE_VERSION}"
+	git push origin "release-v${RELEASE_VERSION}"
