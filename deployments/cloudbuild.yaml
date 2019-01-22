@@ -32,7 +32,7 @@ steps:
   - '-c'
   - |
       sed -i 's/RELEASE_PROJECT/${PROJECT_ID}/g' deployments/service.yaml | \
-      sed -i 's/COMMIT_SHA/${SHORT_SHA}/g' deployments/service.yaml
+      sed -i 's/COMMIT_SHA/${SHORT_SHA}/g' manifest.yaml
 
 # pushes knative cluster
 - name: 'gcr.io/cloud-builders/kubectl'
