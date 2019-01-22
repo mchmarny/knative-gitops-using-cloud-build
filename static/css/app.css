@@ -1,0 +1,57 @@
+/*
+	Knative colors
+	Dark Blue: #0865ad
+	Light Blue: #6695ca
+
+*/
+
+
+html,
+body {
+	height: 100%;
+	font-family: 'Arial', sans-serif;
+	font-weight: 400;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+}
+
+#wrapper {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	text-align: center;
+	widows: 100%;
+}
+
+#page-header {
+	padding: 0;
+	margin: 10px 0 0 0;
+}
+
+#page-header-image {
+	border: 0;
+}
+
+#middle-section {
+	margin: 30px 0 0 0;
+	padding: 10px;
+	text-align: center;
+	align-content: center;
+}
+
+
+#release {
+	font-size: 3em;
+	text-align: center;
+}
+
+#page-footer {
+	widows: 80%;
+	margin: 50px 0 0 0;
+	color: #666;
+	font-weight: 400;
+	font-size: 1em;
+	padding: 0;
+	margin: 1px;
+}

@@ -1,0 +1,27 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: goda
+  namespace: demo
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        metadata:
+          labels:
+            demo: goda
+        spec:
+          container:
+            image: gcr.io/knative-samples/tellmeall:latest
+            imagePullPolicy: Always
+            resources:
+              requests:
+                memory: "128Mi"
+                cpu: "0.5"
+                nvidia.com/gpu: 1
+              limits:
+                memory: "256Mi"
+                cpu: "1"
+            env:
+            - name: RELEASE
+              value: "v0.1.1"
