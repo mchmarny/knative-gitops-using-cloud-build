@@ -23,3 +23,24 @@ steps:
   args:
   - 'push'
   - 'gcr.io/$PROJECT_ID/goda:$SHORT_SHA'
+
+# gen manifest
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Generate manifest
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+     sed "s/RELEASE_PROJECT/${PROJECT_ID}/g" deployments/service.yaml | \
+     sed "s/COMMIT_SHA/${SHORT_SHA}/g" > deployments/manifest.yaml
+
+# pushes knative cluster
+- name: 'gcr.io/cloud-builders/kubectl'
+  id: Deploy
+  args:
+  - 'apply'
+  - '-f'
+  - 'deployments/manifest.yaml'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=kn-v3-head'
