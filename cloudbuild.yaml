@@ -1,0 +1,25 @@
+steps:
+# unit tests
+- name: 'golang:latest'
+  id: Test
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - 'export GO111MODULE=on; go mod download; go test ./... -v'
+
+# build container
+# PROJECT_ID, SHORT_SHA variables are automatically by Cloud Build
+- name: 'gcr.io/cloud-builders/docker'
+  id: Build
+  args:
+  - 'build'
+  - '-t'
+  - 'gcr.io/$PROJECT_ID/goda:$SHORT_SHA'
+  - '.'
+
+# pushes image gcr
+- name: 'gcr.io/cloud-builders/docker'
+  id: Push
+  args:
+  - 'push'
+  - 'gcr.io/$PROJECT_ID/goda:$SHORT_SHA'

@@ -15,3 +15,7 @@ image:
 
 deploy:
 	kubectl apply -f deployments/service.yaml
+
+tag:
+	git tag deploy
+	git push origin deploy
