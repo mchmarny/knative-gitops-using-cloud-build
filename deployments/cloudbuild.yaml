@@ -14,7 +14,7 @@ steps:
   args:
   - 'build'
   - '-t'
-  - 'gcr.io/$PROJECT_ID/goda:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/gocr:$SHORT_SHA'
   - '.'
 
 # pushes image gcr
@@ -22,7 +22,7 @@ steps:
   id: Push
   args:
   - 'push'
-  - 'gcr.io/$PROJECT_ID/goda:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/gocr:$SHORT_SHA'
 
 # gen manifest
 - name: 'gcr.io/cloud-builders/gcloud'
@@ -32,6 +32,7 @@ steps:
   - '-c'
   - |
       sed -e 's/RELEASE_PROJECT/${PROJECT_ID}/g' deployments/service.yaml | \
+      sed -e 's/RELEASE_TAG/${TAG_NAME}/g' deployments/service.yaml | \
       sed -e 's/RELEASE_SHA/${SHORT_SHA}/g' > deployments/manifest.yaml; \
       cat deployments/manifest.yaml
 

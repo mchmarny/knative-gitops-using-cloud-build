@@ -1,7 +1,7 @@
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
-  name: goda
+  name: gocr
   namespace: demo
 spec:
   runLatest:
@@ -9,10 +9,10 @@ spec:
       revisionTemplate:
         metadata:
           labels:
-            demo: goda
+            demo: gocr
         spec:
           container:
-            image: gcr.io/RELEASE_PROJECT/goda:RELEASE_SHA
+            image: gcr.io/RELEASE_PROJECT/gocr:RELEASE_SHA
             imagePullPolicy: Always
             resources:
               requests:
@@ -23,4 +23,4 @@ spec:
                 cpu: "1"
             env:
             - name: RELEASE
-              value: "RELEASE_SHA"
+              value: "RELEASE_TAG"
