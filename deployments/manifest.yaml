@@ -12,7 +12,7 @@ spec:
             demo: goda
         spec:
           container:
-            image: gcr.io/RELEASE_PROJECT/goda:RELEASE_SHA
+            image: gcr.io/${PROJECT_ID}/goda:${SHORT_SHA}
             imagePullPolicy: Always
             resources:
               requests:
@@ -23,4 +23,4 @@ spec:
                 cpu: "1"
             env:
             - name: RELEASE
-              value: "RELEASE_SHA"
+              value: "${SHORT_SHA}"
