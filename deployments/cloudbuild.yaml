@@ -9,12 +9,13 @@ steps:
 
 # build container
 # PROJECT_ID, SHORT_SHA variables are automatically by Cloud Build
+# _APP_NAME substitutions will be populated with build var, err if null
 - name: 'gcr.io/cloud-builders/docker'
   id: Build
   args:
   - 'build'
   - '-t'
-  - 'gcr.io/$PROJECT_ID/gocr:$SHORT_SHA'
+  - 'gcr.io/${PROJECT_ID}/${_APP_NAME}:${SHORT_SHA}'
   - '.'
 
 # pushes image gcr
@@ -22,7 +23,7 @@ steps:
   id: Push
   args:
   - 'push'
-  - 'gcr.io/$PROJECT_ID/gocr:$SHORT_SHA'
+  - 'gcr.io/${PROJECT_ID}/${_APP_NAME}:${SHORT_SHA}'
 
 # gen manifest
 - name: 'gcr.io/cloud-builders/gcloud'
