@@ -12,7 +12,7 @@ spec:
             demo: gocr
         spec:
           container:
-            image: gcr.io/RELEASE_PROJECT/gocr:RELEASE_SHA
+            image: gcr.io/PROJECT_ID/gocr:IMAGE_SHA
             imagePullPolicy: Always
             resources:
               requests:

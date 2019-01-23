@@ -31,10 +31,9 @@ steps:
   args:
   - '-c'
   - |
-      sed -e 's/RELEASE_PROJECT/${PROJECT_ID}/g' deployments/service.yaml | \
-      sed -e 's/RELEASE_TAG/${TAG_NAME}/g' deployments/service.yaml | \
-      sed -e 's/RELEASE_SHA/${SHORT_SHA}/g' > deployments/manifest.yaml; \
-      cat deployments/manifest.yaml
+      sed -e \
+      's/PROJECT_ID/${PROJECT_ID}/g; s/RELEASE_TAG/${TAG_NAME}/g; s/IMAGE_SHA/${SHORT_SHA}/g' \
+      deployments/service.yaml > deployments/final.yaml
 
 # pushes knative cluster
 - name: 'gcr.io/cloud-builders/kubectl'
@@ -42,7 +41,7 @@ steps:
   args:
   - 'apply'
   - '-f'
-  - 'deployments/manifest.yaml'
+  - 'deployments/final.yaml'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=kn-v3-head'
