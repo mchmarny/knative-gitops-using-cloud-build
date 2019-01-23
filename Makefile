@@ -1,5 +1,5 @@
 GCP_PROJECT_NAME=s9-demo
-RELEASE_VERSION=0.1.21
+RELEASE_VERSION=0.1.22
 
 all: test
 
@@ -20,10 +20,13 @@ image:
 		--project=$(GCP_PROJECT_NAME) \
 		--tag gcr.io/$(GCP_PROJECT_NAME)/$(BINARY_NAME) .
 
+submit:
+	gcloud builds submit --config deployments/cloudbuild.yaml
+
 deploy:
 	kubectl apply -f deployments/service.yaml
 
 tag:
-	git tag "release-v${RELEASE_VERSION}"
+	git tag "release-v${RELEASE_VERSION}"`
 	git push origin "release-v${RELEASE_VERSION}"
 	git log --oneline

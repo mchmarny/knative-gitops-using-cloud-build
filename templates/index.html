@@ -3,7 +3,9 @@
 {{ template "header" . }}
 
 <div id="release">
-    <a href="https://github.com/mchmarny/knative-gitops-using-cloud-build/tree/{{ .release }}">tag:/{{ .release }}</a>
+    Current release:
+    <a href="https://github.com/mchmarny/knative-gitops-using-cloud-build/tree/{{ .release }}">
+        {{ .release }}</a>
 </div>
 
 {{ template "footer" . }}
