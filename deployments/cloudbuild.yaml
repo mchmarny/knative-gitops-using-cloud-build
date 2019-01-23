@@ -44,5 +44,5 @@ steps:
   - '-f'
   - 'deployments/final.yaml'
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=kn-v3-head'
+  - 'CLOUDSDK_COMPUTE_ZONE=${_CLUSTER_ZONE}'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLUSTER_NAME}'
