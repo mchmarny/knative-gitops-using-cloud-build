@@ -2,6 +2,8 @@
 
 > GitOps demo using Cloud Build and Knative
 
+Live demo: https://gocr.demo.knative.tech/
+
 Simple setup to automate Knative deployment using Cloud Build by git tags.
 
 * Commit code to your repo (run unit tests)
