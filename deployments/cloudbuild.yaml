@@ -20,8 +20,8 @@ steps:
   id: Manifest
   entrypoint: /bin/sh
   args:
-      '-c'
-- |
+  - '-c'
+  - |
       sed -e \
       's/PROJECT_ID/${PROJECT_ID}/g; s/RELEASE_TAG/${TAG_NAME}/g; s/IMAGE_SHA/${SHORT_SHA}/g' \
       deployments/service.yaml > deployments/final.yaml
