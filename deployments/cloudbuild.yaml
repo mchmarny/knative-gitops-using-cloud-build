@@ -5,7 +5,7 @@ steps:
 - name: 'golang:latest'
   id: Test
   entrypoint: /bin/sh
-  args: ['-c', 'export GO111MODULE=on', 'go mod download', 'go test ./... -v']
+  args: ['-c', 'env GO111MODULE=on', 'go mod download', 'go test ./... -v']
 
 - name: 'gcr.io/cloud-builders/docker'
   id: Build
