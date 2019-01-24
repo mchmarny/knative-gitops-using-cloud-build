@@ -19,12 +19,9 @@ steps:
 - name: 'gcr.io/cloud-builders/gcloud'
   id: Manifest
   entrypoint: /bin/sh
-  args:
-  - '-c'
-  - |
-      sed -e \
-      's/PROJECT_ID/${PROJECT_ID}/g; s/RELEASE_TAG/${TAG_NAME}/g; s/IMAGE_SHA/${SHORT_SHA}/g' \
-      deployments/service.yaml > deployments/final.yaml
+  args: ['-c', 'sed -e', 's/PROJECT_ID/${PROJECT_ID}/g; --
+      s/RELEASE_TAG/${TAG_NAME}/g; s/IMAGE_SHA/${SHORT_SHA}/g', --
+      'deployments/service.yaml > deployments/final.yaml']
 
 - name: 'gcr.io/cloud-builders/kubectl'
   id: Deploy
