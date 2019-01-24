@@ -6,21 +6,15 @@ steps:
 - name: 'golang:latest'
   id: Test
   entrypoint: /bin/sh
-  args: ['-c','export GO111MODULE=on', 'go mod download', 'go test ./... -v']
+  args: ['-c','export GO111MODULE=on','go mod download','go test ./... -v']
 
 - name: 'gcr.io/cloud-builders/docker'
   id: Build
-  args:
-  - 'build'
-  - '-t'
-  - 'gcr.io/${PROJECT_ID}/${_APP_NAME}:${SHORT_SHA}'
-  - '.'
+  args: ['build','-t','gcr.io/${PROJECT_ID}/${_APP_NAME}:${SHORT_SHA}','.']
 
 - name: 'gcr.io/cloud-builders/docker'
   id: Push
-  args:
-  - 'push'
-  - 'gcr.io/${PROJECT_ID}/${_APP_NAME}:${SHORT_SHA}'
+  args: ['push','gcr.io/${PROJECT_ID}/${_APP_NAME}:${SHORT_SHA}']
 
 - name: 'gcr.io/cloud-builders/gcloud'
   id: Manifest
@@ -34,10 +28,7 @@ steps:
 
 - name: 'gcr.io/cloud-builders/kubectl'
   id: Deploy
-  args:
-  - 'apply'
-  - '-f'
-  - 'deployments/final.yaml'
+  args: ['apply','-f','deployments/final.yaml']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=${_CLUSTER_ZONE}'
   - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLUSTER_NAME}'
