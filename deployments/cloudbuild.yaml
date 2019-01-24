@@ -1,48 +1,30 @@
 steps:
-# unit tests
+# PROJECT_ID, SHORT_SHA are Cloud Build variables
+# _APP_NAME _CLUSTER_ZONE, _CLUSTER_NAME substitutions or err if null
+
 - name: 'golang:latest'
   id: Test
   entrypoint: /bin/sh
-  args:
-  - -c
-  - 'export GO111MODULE=on; go mod download; go test ./... -v'
+  args: ['export GO111MODULE=on; go mod download; go test ./... -v']
 
-# build container
-# PROJECT_ID, SHORT_SHA variables are automatically by Cloud Build
-# _APP_NAME substitutions will be populated with build var, err if null
 - name: 'gcr.io/cloud-builders/docker'
   id: Build
-  args:
-  - 'build'
-  - '-t'
-  - 'gcr.io/${PROJECT_ID}/${_APP_NAME}:${SHORT_SHA}'
-  - '.'
+  args: ['build', '-t', 'gcr.io/${PROJECT_ID}/${_APP_NAME}:${SHORT_SHA}', '.']
 
-# pushes image gcr
 - name: 'gcr.io/cloud-builders/docker'
   id: Push
-  args:
-  - 'push'
-  - 'gcr.io/${PROJECT_ID}/${_APP_NAME}:${SHORT_SHA}'
+  args: ['push', 'gcr.io/${PROJECT_ID}/${_APP_NAME}:${SHORT_SHA}']
 
-# gen manifest
 - name: 'gcr.io/cloud-builders/gcloud'
   id: Manifest
   entrypoint: /bin/sh
-  args:
-  - '-c'
-  - |
-      sed -e \
-      's/PROJECT_ID/${PROJECT_ID}/g; s/RELEASE_TAG/${TAG_NAME}/g; s/IMAGE_SHA/${SHORT_SHA}/g' \
-      deployments/service.yaml > deployments/final.yaml
+  args: ['-c', 'sed -e ', 's/PROJECT_ID/${PROJECT_ID}/g; --
+      s/RELEASE_TAG/${TAG_NAME}/g; s/IMAGE_SHA/${SHORT_SHA}/g', --
+      deployments/service.yaml > deployments/final.yaml]
 
-# pushes knative cluster
 - name: 'gcr.io/cloud-builders/kubectl'
   id: Deploy
-  args:
-  - 'apply'
-  - '-f'
-  - 'deployments/final.yaml'
+  args: ['apply', '-f', 'deployments/final.yaml']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=${_CLUSTER_ZONE}'
   - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLUSTER_NAME}'
