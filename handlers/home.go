@@ -36,7 +36,7 @@ func InitHandlers(mux *http.ServeMux) {
 	mux.HandleFunc("/", withLog(homeHandler))
 
 	// health (Istio and other)
-	mux.HandleFunc("/_healthz", func(w http.ResponseWriter, _ *http.Request) {
+	mux.HandleFunc("/_health", func(w http.ResponseWriter, _ *http.Request) {
 		fmt.Fprint(w, "ok")
 	})
 
