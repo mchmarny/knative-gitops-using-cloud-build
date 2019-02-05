@@ -12,7 +12,7 @@ spec:
             demo: kocr
         spec:
           container:
-            image: gcr.io/s9-demo/kocr:latest
+            image: github.com/mchmarny/knative-gitops-using-cloud-build
             imagePullPolicy: Always
             resources:
               requests:
