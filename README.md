@@ -4,16 +4,21 @@
 
 Live demo: https://gocr.demo.knative.tech/
 
-Simple setup to automate Knative deployment using Cloud Build by git tags.
+Simple setup to automate Knative deployments using Git and Cloud Build
 
-* Commit code to your repo (run unit tests)
-* When happy tag the commit you want to deploy
+As a developer, you write code and commit it to a repo. You also hopefully run tests on that code for each commit. Assuming your application passes all the tests, you may want to deploy it to Knative cluster. You can do it form your workstation by using any one of the Knative CLIs (e.g. gcloud, knctl, tm etc.).
+
+In this demo however we are going to demonstrate deploying directly from git repository. This means that you as a developer do not need install anything on your machine other than the standard git tooling. Here is the outline:
+
+* Create a release tag on the commit you want to deploy in git
 * Cloud Build then:
   * Tests (again)
   * Builds and tags image
   * Pushes that image to repository
   * Creates Knative service manifest
   * Applies that manifest to designated Knative cluster
+
+> As an add-on, we are also going to send mobile notification with build status using [knative-build-status-notifs](https://github.com/mchmarny/knative-build-status-notifs)
 
 ## Setup
 
