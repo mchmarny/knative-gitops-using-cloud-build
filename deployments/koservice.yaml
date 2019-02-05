@@ -23,4 +23,4 @@ spec:
                 cpu: "1"
             env:
             - name: RELEASE
-              value: "v0.1.1"
+              value: "RELEASE_TAG"
