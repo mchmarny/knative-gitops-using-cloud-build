@@ -1,0 +1,24 @@
+steps:
+
+- name: 'golang:latest'
+  id: Test
+  entrypoint: /bin/sh
+  args: ['-c','export GO111MODULE=on','go mod download','go test ./... -v']
+
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Manifest
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+      sed -e 's/RELEASE_TAG/${TAG_NAME}/g' \
+      deployments/ko-service.yaml > deployments/final.yaml
+
+
+- name: 'gcr.io/go-containerregistry/ko'
+  id: Deploy
+  args: ['apply','-f','deployments/final.yaml']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=${_CLUSTER_ZONE}'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLUSTER_NAME}'
