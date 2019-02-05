@@ -5,6 +5,8 @@ steps:
   entrypoint: /bin/sh
   args: ['-c','export GO111MODULE=on','go mod download','go test ./... -v']
 
+
+
 - name: 'gcr.io/cloud-builders/docker'
   id: Build
   args: ['build','-t','gcr.io/${PROJECT_ID}/${_APP_NAME}:${SHORT_SHA}','.']

@@ -1,0 +1,26 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: kocr
+  namespace: demo
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        metadata:
+          labels:
+            demo: kocr
+        spec:
+          container:
+            image: gcr.io/s9-demo/kocr:latest
+            imagePullPolicy: Always
+            resources:
+              requests:
+                memory: "128Mi"
+                cpu: "0.5"
+              limits:
+                memory: "256Mi"
+                cpu: "1"
+            env:
+            - name: RELEASE
+              value: "v0.1.1"
