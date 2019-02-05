@@ -1,8 +1,5 @@
 steps:
 
-# PROJECT_ID, SHORT_SHA variables are automatically by Cloud Build
-# _APP_NAME substitutions will be populated with build var, err if null
-
 - name: 'golang:latest'
   id: Test
   entrypoint: /bin/sh
