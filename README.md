@@ -22,7 +22,7 @@ In this demo however we are going to demonstrate deploying directly from git rep
 
 ## Setup
 
-You will have to [configure git trigger](https://pantheon.corp.google.com/cloud-build/triggers/add) in Cloud Build first. There doesn't seem to be a way to do this using `gcloud`.
+You will have to [configure git trigger](https://console.cloud.google.com/cloud-build/triggers/add) in Cloud Build first. There doesn't seem to be a way to do this using `gcloud`.
 
 ![kpush flow](static/img/src.png)
 
@@ -67,5 +67,5 @@ And then describing it
 gcloud builds describe BUILD_ID
 ```
 
-You can always also navigate to the [Build History](https://pantheon.corp.google.com/cloud-build/builds?folder=&organizationId=433637338589&project=s9-demo) screen in UI and see it there.
+You can always also navigate to the [Build History](https://console.cloud.google.com/cloud-build/builds) screen in UI and see it there.
 
